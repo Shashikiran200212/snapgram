@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { Button } from '../button'
-import { Ghost } from 'lucide-react'
+
 import { useSignOutAccount } from '@/lib/react-query/quriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
 import { sidebarLinks } from '@/constants'

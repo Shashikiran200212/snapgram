@@ -4,15 +4,14 @@ import Loader from '@/components/ui/shared/Loader';
 import SearchResults from '@/components/ui/shared/SearchResults';
 import useDebounce from '@/hooks/useDebounce';
 import { useGetPosts, useSearchPost } from '@/lib/react-query/quriesAndMutations';
-import { Models } from 'appwrite';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer';
 
 
 
 const Explore = () => {
-  const { ref, inView } = useInView();
-  const {data: posts, fetchNextPage, hasNextPage} = useGetPosts();
+  const { inView } = useInView();
+  const {data: posts, fetchNextPage} = useGetPosts();
 
   const [searchValue, setSearchValue] = useState("")
   const debounceValue = useDebounce(searchValue, 500);

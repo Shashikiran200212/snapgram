@@ -1,10 +1,10 @@
 import { useDeleteSavedPost, useGetCurrentUser, useLikePost, useSavePost } from '@/lib/react-query/quriesAndMutations';
 import { checkIsLiked } from '@/lib/utils';
-import { Location, useLocation } from 'react-router-dom';
-import { ID, Models } from 'appwrite'
+import { useLocation } from 'react-router-dom';
+import { Models } from 'appwrite'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import { record } from 'zod';
+
 import Loader from './Loader';
 
 type PostStatsProps = {

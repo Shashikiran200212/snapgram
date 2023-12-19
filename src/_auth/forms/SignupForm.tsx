@@ -1,18 +1,14 @@
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
-import { Toaster } from "@/components/ui/toaster"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import React from 'react'
 import { useForm } from "react-hook-form"
 import  Loader  from "@/components/ui/shared/Loader"
 import { Link, useNavigate} from "react-router-dom"
-import { createUserAccount } from "@/lib/appwrite/api"
-import { sign } from "crypto"
 import { SignupValidation } from "@/lib/validation"
 import { useToast } from "@/components/ui/use-toast"
-import { useCreateUserAccountMutation, useSignInAccount } from "@/lib/react-query/quriesAndMutations"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/quriesAndMutations"
 import { useUserContext } from "@/context/AuthContext"
 
 
@@ -20,11 +16,11 @@ import { useUserContext } from "@/context/AuthContext"
 
 const SignupForm = () => {
   const{ toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext()
+  const { checkAuthUser} = useUserContext()
   const navigate = useNavigate();
 
-  const { mutateAsync:createUserAccount, isPending: isCreatingAccount } = useCreateUserAccountMutation();
-  const { mutateAsync:signInAccount, isPending: isSigningIn } = useSignInAccount();
+  const { mutateAsync:createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
+  const { mutateAsync:signInAccount} = useSignInAccount();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({  

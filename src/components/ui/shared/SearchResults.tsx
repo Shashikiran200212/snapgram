@@ -1,7 +1,6 @@
 import { Models } from 'appwrite';
 import Loader from './Loader';
 import GridPostList from './GridPostList';
-import React from 'react';
 
 type SearchResultsProps = {
     isSearchFetching: boolean;
@@ -11,7 +10,7 @@ type SearchResultsProps = {
 const SearchResults = ({isSearchFetching, searchedPosts}:SearchResultsProps) => {
   if(isSearchFetching) return <Loader/>
 
-  if(searchedPosts && searchedPosts.documents.length > 0) {
+  if(searchedPosts) {
     return (
         <GridPostList posts={searchedPosts.documents}/>
     )

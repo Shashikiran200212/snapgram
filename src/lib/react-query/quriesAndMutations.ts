@@ -3,10 +3,13 @@ import{ useQuery, useMutation, useQueryClient, useInfiniteQuery,} from '@tanstac
 import { createUserAccount, signInAccount, signOutAccount, createPost, getRecentPosts, likePost, savePost, deleteSavedPost, getCurrentUser, getPostById, updatePost, deletePost, getInfinitePosts, searchPosts} from "../appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./querykeys";
-import exp from "constants";
-import { query } from "../appwrite/config";
 
-export const useCreateUserAccountMutation = () =>{
+import { appwriteConfig, databases, query } from "../appwrite/config";
+
+
+
+
+export const useCreateUserAccount = () =>{
     return useMutation({
         mutationFn: (user: INewUser) => createUserAccount(user) 
     })
@@ -145,11 +148,32 @@ export const useCreatePost = () => {
     });
   };
 
+
+
+  export async function getInfiniteUsers() {
+    try {
+      const users = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postCollectionId,
+        [Query.limit(20)],
+      );
+  
+      if (!users) throw Error;
+  
+      return users;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
   export const useGetPosts = () => {
     return useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
       queryFn: getInfinitePosts,
-      getNextPageParam: (lastPage) => {
+
+      getNextPageParam: (lastPage) => { 
         if(lastPage && lastPage.documents.length == 0) {
           return null;
         }
