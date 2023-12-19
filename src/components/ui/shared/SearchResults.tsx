@@ -7,6 +7,8 @@ type SearchResultsProps = {
     searchedPosts: Models.Document[];
 }
 
+type document = { documents : Models.Document}
+
 const SearchResults = ({isSearchFetching, searchedPosts}:SearchResultsProps) => {
   if(isSearchFetching) return <Loader/>
 

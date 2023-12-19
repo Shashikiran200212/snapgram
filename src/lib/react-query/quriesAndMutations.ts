@@ -4,7 +4,7 @@ import { createUserAccount, signInAccount, signOutAccount, createPost, getRecent
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./querykeys";
 
-import { appwriteConfig, databases, query } from "../appwrite/config";
+import { appwriteConfig, databases} from "../appwrite/config";
 
 
 
