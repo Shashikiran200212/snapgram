@@ -8,11 +8,10 @@ type GridPostListProps = {
   posts: Models.Document[];
   showUser?: boolean;
   showStats?: boolean;
-  item?: Models.Document[];
 };
 
 const GridPostList = ({
-  posts, 
+  posts,
   showUser = true,
   showStats = true,
 }: GridPostListProps) => {

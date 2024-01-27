@@ -544,3 +544,30 @@ export async function updateUser(user: IUpdateUser) {
     console.log(error);
   }
 }
+
+
+// secondary
+
+// api.ts
+interface Post {
+  id: number;
+  title: string;
+}
+
+export const getPopularPostsToday = async (): Promise<Post[]> => {
+  // Replace this with actual API call
+  return Promise.resolve([
+    { id: 1, title: 'Post 1' },
+    { id: 2, title: 'Post 2' },
+    // Add more posts as needed
+  ]);
+};
+
+// export const searchPost = async (query: string): Promise<Post[]> => {
+//   // Replace this with actual API call
+//   return Promise.resolve([
+//     { id: 3, title: 'Search Result 1' },
+//     { id: 4, title: 'Search Result 2' },
+//     // Add more search results as needed
+//   ]);
+// };
