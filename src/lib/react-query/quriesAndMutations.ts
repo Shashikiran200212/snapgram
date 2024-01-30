@@ -1,7 +1,7 @@
 import { Query } from "appwrite";
 import{ useQuery, useMutation, useQueryClient, useInfiniteQuery} from '@tanstack/react-query'
-import { createUserAccount, signInAccount, signOutAccount, createPost, getRecentPosts, likePost, savePost, deleteSavedPost, getCurrentUser, getPostById, updatePost, deletePost, searchPosts, getInfinitePosts} from "../appwrite/api";
-import { INewPost, INewUser, IUpdatePost } from "@/types";
+import { createUserAccount, signInAccount, signOutAccount, createPost, getRecentPosts, likePost, savePost, deleteSavedPost, getCurrentUser, getPostById, updatePost, deletePost, searchPosts, getInfinitePosts, getUserById, updateUser, getUsers} from "../appwrite/api";
+import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { QUERY_KEYS } from "./querykeys";
 
 import { appwriteConfig, databases} from "../appwrite/config";
@@ -23,6 +23,14 @@ export const useSignInAccount = () =>{
         }) => signInAccount(user) 
     })
 }
+
+export const useGetUserById = (userId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+    queryFn: () => getUserById(userId),
+    enabled: !!userId,
+  });
+};
 
 export const useSignOutAccount = () =>{
     return useMutation({
@@ -115,6 +123,28 @@ export const useCreatePost = () => {
     })
   }
 
+  export const useUpdateUser = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+      mutationFn: (user: IUpdateUser) => updateUser(user),
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+        });
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEYS.GET_USER_BY_ID, data?.$id],
+        });
+      },
+    });
+  };
+
+  export const useGetUsers = (limit?: number) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_USERS],
+      queryFn: () => getUsers(limit),
+    });
+  };
+
   export const useGetPostById = (postId?: string) => {
     return useQuery({
       queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
@@ -195,3 +225,5 @@ export const useCreatePost = () => {
       enabled: !!searchTerm,
     });
   };
+
+ 

@@ -563,11 +563,4 @@ export const getPopularPostsToday = async (): Promise<Post[]> => {
   ]);
 };
 
-// export const searchPost = async (query: string): Promise<Post[]> => {
-//   // Replace this with actual API call
-//   return Promise.resolve([
-//     { id: 3, title: 'Search Result 1' },
-//     { id: 4, title: 'Search Result 2' },
-//     // Add more search results as needed
-//   ]);
-// };
+
